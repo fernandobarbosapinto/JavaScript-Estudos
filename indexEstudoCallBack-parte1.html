@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Entendendo CallBack</title>
+	</head>
+		<style type="text/css">
+			div{
+				width: 100%;
+				height: 100px;
+				border: 1px solid #000;
+				margin: 0px auto;
+				padding: 0px;
+			}
+		</style>
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+		<script type="text/javascript">
+			//Exemplo 01
+			//Este callback vai ser chamada quando fizer um click na janela. Até isso acontecer o processador vai processando outras coisas que acontecem na aplicação.
+			function callback(e){
+				console.log('Aconteceu um evento ' + e.type);
+			}
+
+			window.addEventListener('click', callback);
+
+			//Exemplo 02
+			//Outro exemplo é uma animação que chama a callback no fim da animação.
+			function completa(){
+				console.log('Essa mensagem está dentro de uma função de callback');
+			}
+
+			$('document').ready(function(){
+				$('div').animate({
+					'height': '200px'
+					},{
+					duration: 2000,
+					complete: completa
+					}
+				);
+			});
+
+			//Exemplo 03
+			//Problema: Como transformar um numero no formato string, com parte decimal longa demais que deve ser convertido em dólares, e verificar se um dado cliente têm direito a desconto?
+			//Solução de Forma Síncrona
+			var valorInicial = '1003,087293487';
+			var descontoCliente = '5%';
+			var cambio = 1.1158; // 1 EUR = 1.11580USD
+			var valorInicialEmFormatoNumerico = Number(valorInicial.replace(',', '.'));
+			var valorComDescontoAplicado = valorInicialEmFormatoNumerico - (valorInicialEmFormatoNumerico * parseFloat(descontoCliente) / 100);
+			var valorEmDolares = valorComDescontoAplicado * cambio;
+			var totalComDuasCasasDecimais = valorEmDolares.toFixed(2);
+			console.log('Valor Final de Forma Síncrona ===> ' + '$ ' + totalComDuasCasasDecimais);
+
+			//Solução de Forma Assíncrona
+			function conversaoDeValores(valorDoProduto, desconto, taxaCambial){
+				setTimeout(function valForNumber(valorIFN){
+					//Convertendo a string em valor numérico
+					var valorIFN = Number(valorDoProduto.replace(',', '.'));
+					console.log('Transformar de String para valor numérico: ' + valorIFN);
+					//Aplicando o desconto para o cliente
+					function varDesconto(valorIFN, valorDescAplicado){
+						var valorDescAplicado = valorIFN - (valorIFN * parseFloat(desconto) / 100);
+						console.log('Aplicando o valor com Desconto: ' + valorDescAplicado);
+						//Convertendo o valor para Dolar 
+						function conversaoDoCambio(valorDescAplicado){
+							var valorDolar = valorDescAplicado * taxaCambial;
+							console.log('Conversão do valor para Dolar: ' + valorDolar);
+							//Exibir o valor apenas com duas casas decimais
+							var arredondarValor = valorDolar.toFixed(2);
+							console.log('Valor em Dolar: ' + '$' + arredondarValor);
+						}
+
+						conversaoDoCambio(valorDescAplicado);
+					}
+
+					varDesconto(valorIFN);
+				},3000);
+			}
+			
+			conversaoDeValores(valorInicial, descontoCliente, cambio);
+
+		</script>	
+	<body>
+		<div>
+			
+		</div>
+	</body>
+</html>
