@@ -1,0 +1,41 @@
+{
+	"itens":
+	[
+		{
+			"nomeDoPai" : "Fernando",
+		    "url": "http://www.fernando.com.br/",
+		    "idade": 40,
+		    "dependentes":
+		    [{
+		    	"dados":
+		    	{
+		    		"ultimoFilho": {
+		    			"Nome": "Pedro",
+				        "sexo": "masculino",
+				        "idade": 4
+		    		},
+		    		"filhoDoMeio":{
+		    			"nome": "Ana Clara",
+				        "sexo": "feminino",
+				        "idade": 11
+		    		},
+		    		"primeiroFilho":{
+		    			"nome": "Milenna",
+				        "sexo": "feminino",
+				        "idade": 19
+		    		}
+		    	}
+		    }],
+		    "diasDeTrabalho":
+			[
+				"Segunda", "Terça", "Quarta", "Quinta", "Sexta"
+			]
+		},
+		{
+			"nomeDaMae" : "Sarah",
+			"url": "http://www.sarah.com.br/",
+	    	"idade": 33
+		}
+	]
+	
+}
